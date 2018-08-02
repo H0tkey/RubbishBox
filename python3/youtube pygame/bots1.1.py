@@ -109,6 +109,7 @@ while run:
     
     clock.tick(30)
     handle_events()
+    update()
     drawWindow()
     #print(x,xTarget)
     #print(y,yTarget)
