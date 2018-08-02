@@ -46,9 +46,9 @@ def drawWindow():
 
     window.fill((230, 230, 250))
 
-    # for line in range(len(Map)):
-    # for sell in range(len(Map[line])):
-    #pygame.draw.rect(window,(100,100,100),(startX + (widht + border) * sell,startY + (height + border) * line,widht,height))
+    for line in range(len(Map)):
+        for sell in range(len(Map[line])):
+            pygame.draw.rect(window,(100,100,100),(startX + (widht + border) * sell,startY + (height + border) * line,widht,height))
 
     pygame.draw.rect(window, (0, 0, 255), (x, y, widht, height))
     pygame.display.update()
@@ -98,11 +98,11 @@ def update():
             y -= step
             yTarget += step
 
-    if x == WINDOW_WIDTH - widht or x == 5:
-        xTarget = x
+    #if x == WINDOW_WIDTH - widht or x == 5:
+    #    xTarget = x
 
-    if y == WINDOW_HEIGHT - height or y == 5:
-        yTarget = y
+    #if y == WINDOW_HEIGHT - height or y == 5:
+    #    yTarget = y
 
 
 while run:
@@ -111,8 +111,8 @@ while run:
     handle_events()
     update()
     drawWindow()
-    # print(x,xTarget)
-    # print(y,yTarget)
+    print(x,xTarget)
+    print(y,yTarget)
 
 
 pygame.quit()
