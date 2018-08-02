@@ -94,11 +94,11 @@ def update():
             y -= step
             yTarget += step
 
-    if x == WINDOW_WIDTH - widht or x == 5:
-        xTarget = x
+    #if x == WINDOW_WIDTH - widht or x == 5:
+    #    xTarget = x
 
-    if y == WINDOW_HEIGHT - height or y == 5:
-        yTarget = y
+    #if y == WINDOW_HEIGHT - height or y == 5:
+    #    yTarget = y
 
 
 while run:
