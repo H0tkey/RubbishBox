@@ -15,12 +15,6 @@ y = 5
 xTarget = x
 yTarget = y
 
-widht = 25
-height = 25
-border = 5
-speed = 15
-step = 30
-
 run = True
 
 Map = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -53,9 +47,10 @@ def drawWindow():
     pygame.draw.rect(window, (0, 0, 255), (x, y, widht, height))
     pygame.display.update()
 
+
 def getColor(color):
     if color == 0:
-        return ()
+        return 
 
 
 def handle_events():
