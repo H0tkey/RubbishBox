@@ -15,11 +15,10 @@ pygame.display.set_caption("Bot's world'!")
 #xTarget = x
 #yTarget = y
 
-up = [0,1,2]
-down = [6,5,4]
-left = [0,7,6]
-right = [2,3,4]
-
+up = [0, 1, 2]
+down = [6, 5, 4]
+left = [0, 7, 6]
+right = [2, 3, 4]
 
 
 widht = 24
@@ -39,9 +38,9 @@ Map = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+       [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+       [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+       [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -69,6 +68,7 @@ class Bot():
         self.xTarget = x
         self.yTarget = y
         self.act = 0
+        self.Isee = 0
         self.direction = direction
         self.index = 0
         self.step = 0
@@ -83,7 +83,7 @@ class Bot():
                     0, 0, 0, 0, 0, 0, 0, 0]
 
     def do(self):
-        global xTarget,yTarget
+        global xTarget, yTarget
         sell = self.DNK[self.index]
         if sell <= 7:
             if sell == 0:
@@ -92,102 +92,77 @@ class Bot():
             if sell == 2:
                 xTarget -= 1
 
-    def move(self,n):
+    def move(self, n):
         self.health -= 1
         self.act = 'move'
         command = n + self.direction
-        if command > 7 :
+        if command > 7:
             command -= 8
         if command in up:
-            self.yTarget -=1
+            self.yTarget -= 1
         if command in down:
-            self.yTarget +=1
+            self.yTarget += 1
         if command in left:
-            self.xTarget -=1
+            self.xTarget -= 1
         if command in right:
             print("ok")
-            self.xTarget +=1
+            self.xTarget += 1
 
-    def take(self,n):
+    def take(self, n):
         self.act = 'take'
         command = n + self.direction - 8
-        if command > 7 :
+        if command > 7:
             command -= 8
         if command in up:
-            self.yTarget -=1
+            self.yTarget -= 1
         if command in down:
-            self.yTarget +=1
+            self.yTarget += 1
         if command in left:
-            self.xTarget -=1
+            self.xTarget -= 1
         if command in right:
             print("ok")
-            self.xTarget +=1
+            self.xTarget += 1
 
-    def look(self,n):
+    def look(self, n):
         self.act = 'look'
-        command = n + self.direction - 8*2
-        if command > 7 :
+        command = n + self.direction - 8 * 2
+        if command > 7:
             command -= 8
         if command in up:
-            self.yTarget -=1
+            self.yTarget -= 1
         if command in down:
-            self.yTarget +=1
+            self.yTarget += 1
         if command in left:
-            self.xTarget -=1
+            self.xTarget -= 1
         if command in right:
             print("ok")
-            self.xTarget +=1
+            self.xTarget += 1
 
-    def turnAround(self,n):
+    def turnAround(self, n):
         self.act = 'turn'
-        command = n + self.direction - 8*3
-        if command > 7 :
+        command = n + self.direction - 8 * 3
+        if command > 7:
             command -= 8
         if command in up:
-            self.yTarget -=1
+            self.yTarget -= 1
         if command in down:
-            self.yTarget +=1
+            self.yTarget += 1
         if command in left:
-            self.xTarget -=1
+            self.xTarget -= 1
         if command in right:
-            print("ok")
-            self.xTarget +=1
+            self.xTarget += 1
 
-
-
-    def goLeft(self):
+    def go(self):
         global Map
-        if self.xTarget < len(Map[0]) - 1:
-            self.x += 1
-            Map[self.y][self.x], Map[self.y][self.x -
-                                             1] = Map[self.y][self.x - 1], 0
-
-    def goRight(self):
-        global Map
-        if self.xTarget > 0:
-            self.x -= 1
-            Map[self.y][self.x], Map[self.y][self.x +
-                                             1] = Map[self.y][self.x + 1], 0
-
-    def goDown(self):
-        global Map
-        if self.yTarget < len(Map) - 1:
-            self.y += 1
-            Map[self.y][self.x], Map[self.y -
-                                     1][self.x] = Map[self.y - 1][self.x], 0
-
-    def goUp(self):
-        global Map
-        if self.yTarget > 0:
-            self.y -= 1
-            Map[self.y][self.x], Map[self.y +
-                                     1][self.x] = Map[self.y + 1][self.x], 0
+        Map[self.y][self.x], Map[self.yTarget][self.xTarget] = 0, 2
+        self.x = self.xTarget
+        self.y = self.yTarget 
 
     def take(self):
+        pass
 
 
-
-bot = Bot(10, 10, 40,6)
+bot = Bot(10, 10, 40, 6)
 
 
 def getColor(color):
@@ -231,43 +206,59 @@ def handle_events():
         if event.type == pygame.QUIT:
             run = False
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
-        bot.xTarget -= speed
-    if keys[pygame.K_RIGHT]:
-        bot.xTarget += speed
+    #keys = pygame.key.get_pressed()
+    #if keys[pygame.K_LEFT]:
+    #    bot.xTarget -= speed
+    #if keys[pygame.K_RIGHT]:
+    #    bot.xTarget += speed
 
-    if keys[pygame.K_UP]:
-        bot.yTarget -= speed
-    if keys[pygame.K_DOWN]:
-        bot.yTarget += speed
+    #if keys[pygame.K_UP]:
+    #    bot.yTarget -= speed
+    #if keys[pygame.K_DOWN]:
+    #    bot.yTarget += speed
 
 
 def update():
 
-    if bot.act == 'move': 
-        if bot.xTarget > bot.x:
-            bot.goLeft()
-        if bot.xTarget < bot.x:
-            bot.goRight()
-        if bot.yTarget > bot.y:
-            bot.goDown()
-        if bot.yTarget < bot.y:
-            bot.goUp()
+    if bot.act == 'move':
+        if Map[bot.yTarget][bot.xTarget] == 0: #EMPTY
+            bot.Isee = 0
+            bot.go()
+          
+        elif Map[bot.yTarget][bot.xTarget] == 1:#Wall
+            bot.Isee = 1
+            bot.xTarget = bot.x
+            bot.yTarget = bot.y
+        elif Map[bot.yTarget][bot.xTarget] == 2:#BOT
+            bot.Isee = 2
+            bot.xTarget = bot.x
+            bot.yTarget = bot.y
+        elif Map[bot.yTarget][bot.xTarget] == 3:#FOOD
+            bot.Isee = 3
+            bot.go()
+        elif Map[bot.yTarget][bot.xTarget] == 4:#POISON
+            bot.Isee = 4
+            bot.alive = False
+            bot.go()
+        elif Map[bot.yTarget][bot.xTarget] == 5:#CORPSE
+            bot.Isee = 5
+            bot.xTarget = bot.x
+            bot.yTarget = bot.y
 
-    if bot.act == 'take': 
+    if bot.act == 'take':
+        pass
 
-n = 0
+n = 8
 while run:
 
-    clock.tick(30)
+    clock.tick(1)
     bot.move(n)
     handle_events()
     update()
-    print(bot.health)
+    print(bot.Isee,Map[bot.y][bot.x], Map[bot.yTarget][bot.xTarget])
     drawWindow()
-    n += 1
-    if n == 8:
-        n = 0
+    n -= 1
+    if n == 0:
+        n = 8
 
 pygame.quit()
