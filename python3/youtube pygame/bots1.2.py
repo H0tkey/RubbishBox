@@ -42,66 +42,75 @@ Map = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 
+
 def getArray(n):
     array = []
-    for i in range(8):   
+    for i in range(8):
         array.append([])
         for y in range(8):
             array[i].append(n)
     return array
 
+
 class Bot():
-    def __init__(self,x,y,health):
+    def __init__(self, x, y, health):
         self.x = x
         self.y = y
         self.xTarget = x
         self.yTarget = y
-        self.index = 0 
+        self.index = 0
+        self.step = 0
         self.health = height
         self.DNK = getArray(32)
+
     def draw(self):
         pass
 
     def goLeft(self):
         global Map
-        if self.xTarget < len(Map[0]) -1:
+        if self.xTarget < len(Map[0]) - 1:
             self.x += 1
-            Map[self.y][self.x] , Map[self.y][self.x-1] = Map[self.y][self.x-1] ,0
+            Map[self.y][self.x], Map[self.y][self.x -
+                                             1] = Map[self.y][self.x - 1], 0
 
     def goRight(self):
         global Map
-        if  self.xTarget > 0:  
+        if self.xTarget > 0:
             self.x -= 1
-            Map[self.y][self.x] , Map[self.y][self.x+1] = Map[self.y][self.x+1] ,0
+            Map[self.y][self.x], Map[self.y][self.x +
+                                             1] = Map[self.y][self.x + 1], 0
 
     def goDown(self):
         global Map
-        if self.yTarget < len(Map) -1:
+        if self.yTarget < len(Map) - 1:
             self.y += 1
-            Map[self.y][self.x] , Map[self.y-1][self.x] = Map[self.y-1][self.x] ,0
+            Map[self.y][self.x], Map[self.y -
+                                     1][self.x] = Map[self.y - 1][self.x], 0
 
     def goUp(self):
         global Map
         if self.yTarget > 0:
             self.y -= 1
-            Map[self.y][self.x] , Map[self.y+1][self.x] = Map[self.y+1][self.x] ,0
+            Map[self.y][self.x], Map[self.y +
+                                     1][self.x] = Map[self.y + 1][self.x], 0
 
-bot = Bot(1,1,40)
+
+bot = Bot(1, 1, 40)
 
 
 def getColor(color):
-    if color == 0: #EMPTY
+    if color == 0:  # EMPTY
         return (192, 192, 192)
-    if color == 1: #WAll
+    if color == 1:  # WAll
         return (128, 128, 128)
-    if color == 2: #BOT
+    if color == 2:  # BOT
         return (0, 0, 128)
-    if color == 3: #FOOD
-        return (0, 0, 128)
-    if color == 4: #POISON
-        return (0, 0, 128)
-    if color == 5: #CORPSE
-        return (0, 0, 128)
+    if color == 3:  # FOOD
+        return (50, 205, 50)
+    if color == 4:  # POISON
+        return (139, 0, 0)
+    if color == 5:  # CORPSE
+        return (224, 255, 255)
 
 
 def drawWindow():
@@ -115,16 +124,16 @@ def drawWindow():
 
     for line in range(len(Map)):
         for sell in range(len(Map[line])):
-            pygame.draw.rect(window,(getColor(Map[line][sell])),(startX + (widht + border) * sell,startY + (height + border) * line,widht,height))
+            pygame.draw.rect(window, (getColor(Map[line][sell])), (startX + (
+                widht + border) * sell, startY + (height + border) * line, widht, height))
 
     #pygame.draw.rect(window, (0, 0, 255), (x, y, widht, height))
     pygame.display.update()
 
 
-
 def handle_events():
 
-    global bot , run
+    global bot, run
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -142,9 +151,7 @@ def handle_events():
         bot.yTarget += speed
 
 
-
 def update():
-
 
     if bot.xTarget > bot.x:
         bot.goLeft()
@@ -154,7 +161,6 @@ def update():
         bot.goDown()
     if bot.yTarget < bot.y:
         bot.goUp()
-    
 
 
 while run:
@@ -163,6 +169,6 @@ while run:
     handle_events()
     update()
     drawWindow()
-    
+
 
 pygame.quit()
