@@ -33,9 +33,11 @@ assert os.path.isfile('sound_effects/brick_hit.wav')
 
 
 class Breakout(Game):
-    def __init__(self):55
-        Game.__init__(self, 'Breakout', c.screen_width, c.screen_height, c.background_image, c.frame_rate)
-        self.sound_effects = {name: pygame.mixer.Sound(sound) for name, sound in c.sounds_effects.items()}
+    def __init__(self): 55
+        Game.__init__(self, 'Breakout', c.screen_width,
+                      c.screen_height, c.background_image, c.frame_rate)
+        self.sound_effects = {name: pygame.mixer.Sound(
+            sound) for name, sound in c.sounds_effects.items()}
         self.reset_effect = None
         self.effect_start_time = None
         self.score = 0
@@ -142,7 +144,8 @@ class Breakout(Game):
                 brick_color = c.brick_color
                 index = random.randint(0, 10)
                 if index < len(special_effects):
-                    brick_color, start_effect_func, reset_effect_func = list(special_effects.values())[index]
+                    brick_color, start_effect_func, reset_effect_func = list(
+                        special_effects.values())[index]
                     effect = start_effect_func, reset_effect_func
 
                 brick = Brick(offset_x + col * (w + 1),
@@ -161,7 +164,8 @@ class Breakout(Game):
                          right=Rect(obj.right, obj.top, 1, obj.height),
                          top=Rect(obj.left, obj.top, obj.width, 1),
                          bottom=Rect(obj.left, obj.bottom, obj.width, 1))
-            collisions = set(edge for edge, rect in edges.items() if ball.bounds.colliderect(rect))
+            collisions = set(edge for edge, rect in edges.items()
+                             if ball.bounds.colliderect(rect))
             if not collisions:
                 return None
 
@@ -270,7 +274,8 @@ class Breakout(Game):
             self.show_message('GAME OVER!', centralized=True)
 
     def show_message(self, text, color=colors.WHITE, font_name='Arial', font_size=20, centralized=False):
-        message = TextObject(c.screen_width // 2, c.screen_height // 2, lambda: text, color, font_name, font_size)
+        message = TextObject(c.screen_width // 2, c.screen_height //
+                             2, lambda: text, color, font_name, font_size)
         self.draw()
         message.draw(self.surface, centralized)
         pygame.display.update()
