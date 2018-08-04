@@ -227,7 +227,7 @@ def getColor(color):
 
 
 def drawWindow():
-
+    global startX , startY
     startX = 5
     startY = 5
 
@@ -240,13 +240,26 @@ def drawWindow():
             a = getColor(Map[line][sell])
             pygame.draw.rect(window, a, (startX + (
                 widht + border) * sell, startY + (height + border) * line, widht, height))
-            if a == (0, 0, 128):
-                textInput(population[ID].x + widht / 2,population[ID].y + height / 2,str(population[ID].health),(255,255,255))
+            
+    textInput(startX + (widht + border) * population[ID].x + widht / 2,startY + (height + border) *population[ID].y + height / 2,str(population[ID].health),(255,255,255))
     #pygame.draw.rect(window, (0, 0, 255), (x, y, widht, height))
     pygame.display.flip()
 
     #pygame.display.update()
 
+def drawCells(color1,color2):
+    
+    pygame.draw.rect(window, color1, (startX + (widht + border) * population[ID].xTarget, startY + (height + border) * population[ID].yTarget, widht, height))
+    pygame.draw.rect(window, color2, (startX + (widht + border) * population[ID].x, startY + (height + border) * population[ID].y, widht, height))
+    textInput(startX + (widht + border) * population[ID].x + widht / 2,startY + (height + border) *population[ID].y + height / 2,str(population[ID].health),(255,255,255))
+    pygame.display.flip()
+
+def updateCounters():
+    global population , ID
+    population[ID].xTarget = population[ID].x
+    population[ID].yTarget = population[ID].y
+    population[ID].step = 0
+    ID += 1
 
 def handle_events():
 
@@ -279,110 +292,73 @@ def update():
             if Map[population[ID].yTarget][population[ID].xTarget] == 0:  # EMPTY
                 population[ID].Isee = 0
                 population[ID].go()
-                population[ID].step = 0
-                ID += 1
+                drawCells((0, 0, 128),(192, 192, 192))
+                updateCounters()
             elif Map[population[ID].yTarget][population[ID].xTarget] == 1:  # Wall
                 population[ID].Isee = 1
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step = 0
-                ID += 1
+                updateCounters()
             elif Map[population[ID].yTarget][population[ID].xTarget] == 2:  # BOT
                 population[ID].Isee = 2
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step = 0
-                ID += 1
+                updateCounters()
             elif Map[population[ID].yTarget][population[ID].xTarget] == 3:  # FOOD
                 population[ID].Isee = 3
                 population[ID].health += 20
                 population[ID].go()
-                population[ID].step = 0
-                ID += 1
+                drawCells((0, 0, 128),(192, 192, 192))
+                updateCounters()
             elif Map[population[ID].yTarget][population[ID].xTarget] == 4:  # POISON
                 population[ID].Isee = 4
                 population[ID].alive = False
                 population[ID].go()
-                population[ID].step = 0
-                ID += 1
+                drawCells((0, 0, 128),(192, 192, 192))
+                updateCounters()
             elif Map[population[ID].yTarget][population[ID].xTarget] == 5:  # CORPSE
                 population[ID].Isee = 5
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step = 0
-                ID += 1
+                updateCounters()
 
         elif population[ID].act == 'take':
             if Map[population[ID].yTarget][population[ID].xTarget] == 0:  # EMPTY
                 population[ID].Isee = 0
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step = 0
-                ID += 1
+                updateCounters()
             elif Map[population[ID].yTarget][population[ID].xTarget] == 1:  # Wall
                 population[ID].Isee = 1
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step = 0
-                ID += 1
+                updateCounters()
             elif Map[population[ID].yTarget][population[ID].xTarget] == 2:  # BOT
                 population[ID].Isee = 2
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step = 0
-                ID += 1
+                updateCounters()
             elif Map[population[ID].yTarget][population[ID].xTarget] == 3:  # FOOD
                 population[ID].Isee = 3
                 population[ID].health += 20
                 Map[population[ID].yTarget][population[ID].xTarget] = 0
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step = 0
-                ID += 1
+                drawCells((192, 192, 192),(0, 0, 128))
+                updateCounters()
             elif Map[population[ID].yTarget][population[ID].xTarget] == 4:  # POISON
                 population[ID].Isee = 4
                 population[ID].step = 0
-                ID += 1
-                Map[population[ID].yTarget][population[ID].xTarget] = 3
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
+                drawCells((50, 205, 50),(0, 0, 128))
+                updateCounters()
             elif Map[population[ID].yTarget][population[ID].xTarget] == 5:  # CORPSE
                 population[ID].Isee = 5
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step = 0
-                ID += 1
+                updateCounters()
         elif population[ID].act == 'look':
             if Map[population[ID].yTarget][population[ID].xTarget] == 0:  # EMPTY
                 population[ID].Isee = 0
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step += 1
+                updateCounters()
             elif Map[population[ID].yTarget][population[ID].xTarget] == 1:  # Wall
                 population[ID].Isee = 1
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step += 1
+                updateCounters()
             elif Map[population[ID].yTarget][population[ID].xTarget] == 2:  # BOT
                 population[ID].Isee = 2
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step += 1
+                updateCounters()
             elif Map[population[ID].yTarget][population[ID].xTarget] == 3:  # FOOD
                 population[ID].Isee = 3
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step += 1
+                updateCounters()
             elif Map[population[ID].yTarget][population[ID].xTarget] == 4:  # POISON
                 population[ID].Isee = 4
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step += 1
+                updateCounters()
             elif Map[population[ID].yTarget][population[ID].xTarget] == 5:  # CORPSE
                 population[ID].Isee = 5
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step += 1
+                updateCounters()
 
     else:
         del(population[ID])
@@ -412,29 +388,31 @@ drawWindow()
 pygame.time.delay(1000)
 while run:
     #textF()
-    clock.tick(50)
-    if n < 8:
-        population[ID].move(n)
-    elif n > 8 and n < 16:
-        population[ID].take(n + 8)
-    #elif n > 16 and n < 24:
-        #population[ID].look(n + 8*2)
-    #elif n > 24:
-        #population[ID].turnAround(k)
-    
-    print(ID,population[ID].yTarget,population[ID].xTarget,ID,len(population))
-    handle_events()
-    update()
-    #textF()
-    if len(population) == 0:
-        break
+    while ID <= len(population):
+        clock.tick(50)
+        if n < 8:
+            population[ID].move(n)
+        elif n > 8 and n < 16:
+            population[ID].take(n + 8)
+        #elif n > 16 and n < 24:
+            #population[ID].look(n + 8*2)
+        #elif n > 24:
+            #population[ID].turnAround(k)
+        
+        print(ID,population[ID].yTarget,population[ID].xTarget,ID,len(population))
+        handle_events()
+        update()
+        #textF()
+        if len(population) == 0:
+            break
+        
+        n += 1
+        if n == 28:
+            n = 0
+        k +=1
+        
+        
+        #print(getXY())
+        #print(ID,population[ID].xTarget,population[ID].yTarget,population[ID].step)
     drawWindow()
-    n += 1
-    if n == 28:
-        n = 0
-    k +=1
-    
-    
-    #print(getXY())
-    #print(ID,population[ID].xTarget,population[ID].yTarget,population[ID].step)
 pygame.quit()

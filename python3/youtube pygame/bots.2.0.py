@@ -2,7 +2,7 @@ import pygame
 from text_object import *
 import random
 WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 800
+WINDOW_HEIGHT = 680
 
 
 pygame.init()
@@ -22,24 +22,24 @@ down = [6, 5, 4]
 left = [0, 7, 6]
 right = [2, 3, 4]
 
-
+startX = 5
+startY = 5
 widht = 16
 height = 16
 border = 2
 speed = 1
 ID = 0
 
+EMPTY = (192, 192, 192)
+WAll = (128, 128, 128)
+BOT = (0, 0, 128)
+FOOD = (50, 205, 50)
+POISON = (139, 0, 0)
+CORPSE = (224, 255, 255)
+
 run = True
 
 Map = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -78,13 +78,52 @@ def getArray(n):
             array[i].append(n)
     return array
 
-
-class Bot():
-    def __init__(self, x, y, health, direction):
-        global Map
-        self.alive = True
+class Object():
+    def __init__(self,x,y,Type,color):
         self.x = x
         self.y = y
+        self.Type = Type
+        self.color = color
+    
+    def getRealX(self):
+        return startX + (widht + border) * self.x
+    
+    def getRealY(self):
+        return startY + (height + border) * self.y
+    
+    def draw(self):
+        pygame.draw.rect(window,self.color,(self.getRealX(),self.getRealY(),widht,height))
+    
+    def move(self,x,y):
+        if self.x + x > 0 and self.x + x < len(Map[0]) -1 and self.y + y > 0 and self.y + y < len(Map) - 1:
+            self.x += x
+            self.y += y
+        else:
+            print("Go out borders ",self.x + x,self.y + y)
+
+
+
+def getColor(color):
+    if color == 0:  # EMPTY
+        return (192, 192, 192)
+    if color == 1:  # WAll
+        return (128, 128, 128)
+    if color == 2:  # BOT
+        return (0, 0, 128)
+    if color == 3:  # FOOD
+        return (50, 205, 50)
+    if color == 4:  # POISON
+        return (139, 0, 0)
+    if color == 5:  # CORPSE
+        return (224, 255, 255)
+
+
+class Bot(Object):
+    def __init__(self, x, y, health, direction):
+        super.__init__(x,y)
+        global Map
+        self.alive = True
+        
         #print(self.x,self.y)
         Map[y][x] = 2
         self.xTarget = x
@@ -211,25 +250,12 @@ def createPopulation(n,health):
 #population[ID] = 
 
 
-def getColor(color):
-    if color == 0:  # EMPTY
-        return (192, 192, 192)
-    if color == 1:  # WAll
-        return (128, 128, 128)
-    if color == 2:  # BOT
-        return (0, 0, 128)
-    if color == 3:  # FOOD
-        return (50, 205, 50)
-    if color == 4:  # POISON
-        return (139, 0, 0)
-    if color == 5:  # CORPSE
-        return (224, 255, 255)
+
 
 
 def drawWindow():
-
-    startX = 5
-    startY = 5
+    
+    
 
     global Map
 
@@ -237,15 +263,12 @@ def drawWindow():
 
     for line in range(len(Map)):
         for sell in range(len(Map[line])):
-            a = getColor(Map[line][sell])
-            pygame.draw.rect(window, a, (startX + (
-                widht + border) * sell, startY + (height + border) * line, widht, height))
-            if a == (0, 0, 128):
-                textInput(population[ID].x + widht / 2,population[ID].y + height / 2,str(population[ID].health),(255,255,255))
-    #pygame.draw.rect(window, (0, 0, 255), (x, y, widht, height))
-    pygame.display.flip()
+            pygame.draw.rect(window,(getColor(Map[line][sell])),(startX + (widht + border) * sell,startY + (height + border) * line,widht,height))
 
-    #pygame.display.update()
+    #pygame.draw.rect(window, (0, 0, 255), (x, y, widht, height))
+    pygame.display.update()
+
+
 
 
 def handle_events():
@@ -269,127 +292,7 @@ def handle_events():
 
 
 def update():
-    global population , Map, ID
-    if population[ID].alive and population[ID].health != 0: 
-        if population[ID].step >= 10:
-            population[ID].step = 0
-            population[ID].health -= 1
-            ID += 1 
-        elif population[ID].act == 'move':
-            if Map[population[ID].yTarget][population[ID].xTarget] == 0:  # EMPTY
-                population[ID].Isee = 0
-                population[ID].go()
-                population[ID].step = 0
-                ID += 1
-            elif Map[population[ID].yTarget][population[ID].xTarget] == 1:  # Wall
-                population[ID].Isee = 1
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step = 0
-                ID += 1
-            elif Map[population[ID].yTarget][population[ID].xTarget] == 2:  # BOT
-                population[ID].Isee = 2
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step = 0
-                ID += 1
-            elif Map[population[ID].yTarget][population[ID].xTarget] == 3:  # FOOD
-                population[ID].Isee = 3
-                population[ID].health += 20
-                population[ID].go()
-                population[ID].step = 0
-                ID += 1
-            elif Map[population[ID].yTarget][population[ID].xTarget] == 4:  # POISON
-                population[ID].Isee = 4
-                population[ID].alive = False
-                population[ID].go()
-                population[ID].step = 0
-                ID += 1
-            elif Map[population[ID].yTarget][population[ID].xTarget] == 5:  # CORPSE
-                population[ID].Isee = 5
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step = 0
-                ID += 1
-
-        elif population[ID].act == 'take':
-            if Map[population[ID].yTarget][population[ID].xTarget] == 0:  # EMPTY
-                population[ID].Isee = 0
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step = 0
-                ID += 1
-            elif Map[population[ID].yTarget][population[ID].xTarget] == 1:  # Wall
-                population[ID].Isee = 1
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step = 0
-                ID += 1
-            elif Map[population[ID].yTarget][population[ID].xTarget] == 2:  # BOT
-                population[ID].Isee = 2
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step = 0
-                ID += 1
-            elif Map[population[ID].yTarget][population[ID].xTarget] == 3:  # FOOD
-                population[ID].Isee = 3
-                population[ID].health += 20
-                Map[population[ID].yTarget][population[ID].xTarget] = 0
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step = 0
-                ID += 1
-            elif Map[population[ID].yTarget][population[ID].xTarget] == 4:  # POISON
-                population[ID].Isee = 4
-                population[ID].step = 0
-                ID += 1
-                Map[population[ID].yTarget][population[ID].xTarget] = 3
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-            elif Map[population[ID].yTarget][population[ID].xTarget] == 5:  # CORPSE
-                population[ID].Isee = 5
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step = 0
-                ID += 1
-        elif population[ID].act == 'look':
-            if Map[population[ID].yTarget][population[ID].xTarget] == 0:  # EMPTY
-                population[ID].Isee = 0
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step += 1
-            elif Map[population[ID].yTarget][population[ID].xTarget] == 1:  # Wall
-                population[ID].Isee = 1
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step += 1
-            elif Map[population[ID].yTarget][population[ID].xTarget] == 2:  # BOT
-                population[ID].Isee = 2
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step += 1
-            elif Map[population[ID].yTarget][population[ID].xTarget] == 3:  # FOOD
-                population[ID].Isee = 3
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step += 1
-            elif Map[population[ID].yTarget][population[ID].xTarget] == 4:  # POISON
-                population[ID].Isee = 4
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step += 1
-            elif Map[population[ID].yTarget][population[ID].xTarget] == 5:  # CORPSE
-                population[ID].Isee = 5
-                population[ID].xTarget = population[ID].x
-                population[ID].yTarget = population[ID].y
-                population[ID].step += 1
-
-    else:
-        del(population[ID])
-
-    if ID >= len(population):
-        ID = 0
-
+   pass
 
 def textInput(x,y,text,color):
     global window
@@ -402,39 +305,24 @@ def textInput(x,y,text,color):
     window.blit(textSurfaceObj, textRectObj)
     
 
-createPopulation(64,20)
-generation(3,100)
-generation(4,20)
+#createPopulation(64,20)
+#generation(3,100)
+#generation(4,20)
 
-n = 0
-k = 24
+#n = 27
+#k = 0
 drawWindow()
-pygame.time.delay(1000)
+pygame.image.save(window,"bg.jpg")
+bg = pygame.image.load("bg.jpg")
+window.blit(bg,(0,0))
+a = Object(10,10,"FOOD",FOOD)
 while run:
-    #textF()
-    clock.tick(50)
-    if n < 8:
-        population[ID].move(n)
-    elif n > 8 and n < 16:
-        population[ID].take(n + 8)
-    #elif n > 16 and n < 24:
-        #population[ID].look(n + 8*2)
-    #elif n > 24:
-        #population[ID].turnAround(k)
-    
-    print(ID,population[ID].yTarget,population[ID].xTarget,ID,len(population))
+    clock.tick(100)
+    window.blit(bg,(0,0))
+    a.draw()
+    pygame.display.flip()
     handle_events()
-    update()
-    #textF()
-    if len(population) == 0:
-        break
-    drawWindow()
-    n += 1
-    if n == 28:
-        n = 0
-    k +=1
+    #update()
+    a.move(0,1)
     
-    
-    #print(getXY())
-    #print(ID,population[ID].xTarget,population[ID].yTarget,population[ID].step)
 pygame.quit()
