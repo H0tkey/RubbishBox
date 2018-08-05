@@ -23,49 +23,21 @@ POISON = (139, 0, 0)
 CORPSE = (224, 255, 255)
 BOT_START_HEALTH = 20
 
-Map = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
-
 
 class World():
     def __init__(self):
         pygame.init()
         random.seed()
-        self.FPS = 100
-        self.WINDOW_WIDTH = 800
-        self.WINDOW_HEIGHT = 680
+        self.FPS = 1
+        self.WINDOW_WIDTH = 1500
+        self.WINDOW_HEIGHT = 700
+        self.mapL = 80
+        self.mapW = 35
         self.clock = pygame.time.Clock()
         self.run = True
         self.window = pygame.display.set_mode((self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
         self.fontObj = pygame.font.Font(None, 20)
-        self.map = Map
+        self.map = self.generationMap()
         pygame.display.set_caption("Bots's world'!")
         self.drawWindow()
         pygame.image.save(self.window,"bg.jpg")
@@ -74,20 +46,33 @@ class World():
         self.window.blit(self.bg,(0,0))
         self.objects = Objects()
 
+
+    def generationMap(self):
+        Map = []
+        for j in range(self.mapW):
+            Map.append([])
+            for i in range(self.mapL):
+                #print(i)
+                if i == 0 or j == 0 or j == self.mapW - 1 or i == self.mapL - 1:  
+                    Map[j].append(1)
+                else:
+                    Map[j].append(0)
+        #print(Map)
+        return Map
+
     def drawWindow(self):
 
         self.window.fill((240, 240, 250))
 
         for line in range(len(self.map)):
             for sell in range(len(self.map[line])):
-                pygame.draw.rect(self.window,(getColor(Map[line][sell])),(startX + (widht + border) * sell,startY + (height + border) * line,widht,height))
+                pygame.draw.rect(self.window,(getColor(self.map[line][sell])),(startX + (widht + border) * sell,startY + (height + border) * line,widht,height))
 
         #pygame.draw.rect(window, (0, 0, 255), (x, y, widht, height))
-        pygame.display.update()
+        pygame.display.flip()
 
     def update(self):
         self.clock.tick(self.FPS)
-        self.window.blit(self.bg,(0,0))
         handle_events()
 
     def drawObjects(self):
@@ -101,9 +86,15 @@ class World():
             i.draw()
 
     def draw(self):
+        self.window.blit(self.bg,(0,0))
         self.drawObjects()
         pygame.display.flip()
 
+    def textInput(self,x,y,text,color):
+        textSurfaceObj = self.fontObj.render(text, True, color)
+        textRectObj = textSurfaceObj.get_rect()
+        textRectObj.center = (x, y)
+        self.window.blit(textSurfaceObj, textRectObj)
 
 
 def getArray(n):
@@ -125,7 +116,9 @@ class Objects():
     
     def checkCell(self,x,y):
         ret = "EMPTY"
+        print("#######",len(self.poison)) 
         for cell in self.poison:
+            #print("POis", cell.x ,cell.y)
             if x == cell.x and y == cell.y:
                 ret = cell.Type
         for cell in self.walls:
@@ -139,12 +132,35 @@ class Objects():
                 ret = cell.Type
         return ret
 
+    def deleteObject(self,x,y,Type):
+        i = self.findObject(x,y,Type)
+        print("Bots x y i",x,y,i)
+        if Type == "FOOD":
+            self.food.pop(i)
+        if Type == "POISON":
+            self.poison.pop(i)
+        
+    def findObject(self,x,y,Type):
+        if Type == "FOOD":
+            i = 0
+            while i < len(self.food):
+                if self.food[i].x == x and self.food[i].y == y:
+                    return i
+                i += 1 
+        elif Type == "POISON":
+            i = 0
+            while i < len(self.poison):
+                print("POISON X Y ", self.poison[i].x,self.poison[i].y)
+                if self.poison[i].x == x and self.poison[i].y == y:
+                    return i
+                i += 1 
+
     def generationXY(self):
         x = 1
         y = 1
         while self.checkCell(x,y) != "EMPTY":
-            x = random.randint(1,len(Map[0]) -2)
-            y = random.randint(1,len(Map) - 2)
+            x = random.randint(1,len(world.map[0]) -2)
+            y = random.randint(1,len(world.map) - 2)
         return x,y
 
     def generationAll(self,poison,walls,bots,food):
@@ -161,7 +177,7 @@ class Objects():
     def generationWalls(self,n):
         for i in range(n):
             x, y = self.generationXY()
-            self.walls.append(Object(x,y,"WAll",WAll))
+            self.walls.append(Object(x,y,"WALL",WAll))
 
     def generationBots(self,n):
         def generationDirection():
@@ -179,10 +195,16 @@ class Objects():
 
     def updateBots(self):
         while self.ID < len(self.bots):
-            self.bots[self.ID].move(1,0)
-            self.bots[self.ID].draw()
-            world.draw()
-            self.ID += 1
+            if self.bots[self.ID].alive == False or self.bots[self.ID].health <= 0:
+                del(self.bots[self.ID]) 
+            if self.ID < len(self.bots):
+                a = random.randint(0,8)
+                #print(a,self.bots[self.ID].direction)
+                self.bots[self.ID].take(a)
+                #self.bots[self.ID].draw()
+            else:
+                break
+        world.draw()
         self.ID = 0
 
 
@@ -204,7 +226,7 @@ class Object():
         pygame.draw.rect(world.window,self.color,(self.getRealX(),self.getRealY(),widht,height))
     
     def move(self,x,y):
-        if self.x + x > 0 and self.x + x < len(Map[0]) -1 and self.y + y > 0 and self.y + y < len(Map) - 1:
+        if self.x + x > 0 and self.x + x < len(world.map[0]) -1 and self.y + y > 0 and self.y + y < len(world.map) - 1:
             self.x += x
             self.y += y
         else:
@@ -230,10 +252,7 @@ def getColor(color):
 class Bot(Object):
     def __init__(self, x, y, health, direction, Type,color):
         super().__init__(x,y,Type,color)
-        global Map
         self.alive = True
-        self.xTarget = x
-        self.yTarget = y
         self.act = 0
         self.Isee = 0
         self.direction = direction
@@ -249,7 +268,7 @@ class Bot(Object):
                     0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0]
 
-    def moveFromDirection(self,direction):
+    def getXY(self,direction):
         x = 0
         y = 0
         direction += self.direction
@@ -263,7 +282,73 @@ class Bot(Object):
             x -= 1
         if direction in right:
             x += 1
-        self.move(x,y)
+        return x,y
+
+    def move(self,direction):
+        x, y  = self.getXY(direction)
+        self.health -= 1
+        if self.x + x > 0 and self.x + x < len(world.map[0]) -1 and self.y + y > 0 and self.y + y < len(world.map) - 1:
+            if  world.objects.checkCell(self.x + x,self.y + y) == "EMPTY":
+                self.x += x
+                self.y += y
+                self.Isee = "EMPTY"
+                world.objects.ID += 1
+            elif  world.objects.checkCell(self.x + x,self.y + y) == "POISON":
+                self.x += x
+                self.y += y
+                self.alive = False
+                self.Isee = "POISON"
+                world.objects.ID += 1
+            elif  world.objects.checkCell(self.x + x,self.y + y) == "WALL":
+                self.Isee = "WALL"
+                world.objects.ID += 1
+            elif  world.objects.checkCell(self.x + x,self.y + y) == "BOT":
+                self.Isee = "BOT"
+                world.objects.ID += 1
+            elif  world.objects.checkCell(self.x + x,self.y + y) == "FOOD":
+                self.health += 20
+                self.x += x
+                self.y += y
+                self.Isee = "FOOD" 
+                world.objects.deleteObject(self.x,self.y,"FOOD")
+                world.objects.ID += 1
+        else:
+            self.Isee = "WAll"
+            world.objects.ID += 1
+
+    def take(self, direction):
+        direction -= 8
+        x, y  = self.getXY(direction)
+        self.health -= 1
+        if self.x + x > 0 and self.x + x < len(world.map[0]) -1 and self.y + y > 0 and self.y + y < len(world.map) - 1:
+            if  world.objects.checkCell(self.x + x,self.y + y) == "EMPTY":
+                self.Isee = "EMPTY"
+                world.objects.ID += 1
+            elif  world.objects.checkCell(self.x + x,self.y + y) == "POISON":
+                world.objects.deleteObject(self.x + x,self.y + y,"POISON")
+                world.objects.food.append(Object(self.x + x,self.y + y,"FOOD",FOOD))
+                self.Isee = "POISON"
+                world.objects.ID += 1
+            elif  world.objects.checkCell(self.x + x,self.y + y) == "WALL":
+                self.Isee = "WALL"
+                world.objects.ID += 1
+            elif  world.objects.checkCell(self.x + x,self.y + y) == "BOT":
+                self.Isee = "BOT"
+                world.objects.ID += 1
+            elif  world.objects.checkCell(self.x + x,self.y + y) == "FOOD":
+                self.health += 20
+                self.Isee = "FOOD" 
+                world.objects.deleteObject(self.x + x,self.y + y,"FOOD")
+                world.objects.ID += 1
+        else:
+            self.Isee = "WAll"
+            world.objects.ID += 1
+
+    def look(self, n):
+        pass
+    def turnAround(self, n):
+        pass
+
 
     def do(self):
         global xTarget, yTarget
@@ -275,15 +360,11 @@ class Bot(Object):
             if sell == 2:
                 xTarget -= 1
 
+    def draw(self):
+        pygame.draw.rect(world.window,self.color,(self.getRealX(),self.getRealY(),widht,height))
+        world.textInput(self.getRealX() + widht / 2, self.getRealY() + widht / 2,str(self.health),(255,255,255))
+
     
-
-    def take(self, n):
-        pass
-
-    def look(self, n):
-        pass
-    def turnAround(self, n):
-        pass
     
 
 
@@ -350,15 +431,9 @@ def handle_events():
 def update():
    pass
 
-def textInput(x,y,text,color):
-    global window
-    global fontObj
-    textSurfaceObj = fontObj.render(text, True, color)
-    textRectObj = textSurfaceObj.get_rect()
-    textRectObj.center = (x, y)
 
     #screen.fill(white)
-    window.blit(textSurfaceObj, textRectObj)
+    #window.blit(textSurfaceObj, textRectObj)
     
 
 #createPopulation(64,20)
@@ -366,13 +441,14 @@ def textInput(x,y,text,color):
 #generation(4,20)
 world = World()
 
-world.objects.generationAll(10,10,10,10) #poison,walls,bots,food
+world.objects.generationAll(100,10,50,10) #poison,walls,bots,food
 a = Object(10,10,"FOOD",FOOD)
 b = Bot(20,10,10,6,"BOT",BOT)
 world.update() 
+
 while world.run:
     world.update()    
     world.objects.updateBots()
-    
+    #world.textInput(500,500,"Hello world" , (200,200,200))
 pygame.quit()
-print(len(world.objects.poison))
+

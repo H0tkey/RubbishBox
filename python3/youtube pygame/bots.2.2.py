@@ -58,7 +58,7 @@ class World():
     def __init__(self):
         pygame.init()
         random.seed()
-        self.FPS = 100
+        self.FPS = 1
         self.WINDOW_WIDTH = 800
         self.WINDOW_HEIGHT = 680
         self.clock = pygame.time.Clock()
@@ -83,11 +83,10 @@ class World():
                 pygame.draw.rect(self.window,(getColor(Map[line][sell])),(startX + (widht + border) * sell,startY + (height + border) * line,widht,height))
 
         #pygame.draw.rect(window, (0, 0, 255), (x, y, widht, height))
-        pygame.display.update()
+        pygame.display.flip()
 
     def update(self):
         self.clock.tick(self.FPS)
-        self.window.blit(self.bg,(0,0))
         handle_events()
 
     def drawObjects(self):
@@ -101,9 +100,15 @@ class World():
             i.draw()
 
     def draw(self):
+        self.window.blit(self.bg,(0,0))
         self.drawObjects()
         pygame.display.flip()
 
+    def textInput(self,x,y,text,color):
+        textSurfaceObj = self.fontObj.render(text, True, color)
+        textRectObj = textSurfaceObj.get_rect()
+        textRectObj.center = (x, y)
+        self.window.blit(textSurfaceObj, textRectObj)
 
 
 def getArray(n):
@@ -179,10 +184,11 @@ class Objects():
 
     def updateBots(self):
         while self.ID < len(self.bots):
-            self.bots[self.ID].move(1,0)
-            self.bots[self.ID].draw()
-            world.draw()
+            self.bots[self.ID].moveFromDirection(3)
+            #self.bots[self.ID].draw()
+            
             self.ID += 1
+        world.draw()
         self.ID = 0
 
 
@@ -275,7 +281,9 @@ class Bot(Object):
             if sell == 2:
                 xTarget -= 1
 
-    
+    def draw(self):
+        pygame.draw.rect(world.window,self.color,(self.getRealX(),self.getRealY(),widht,height))
+        world.textInput(self.getRealX() + widht / 2, self.getRealY() + widht / 2,str(self.health),(255,255,255))
 
     def take(self, n):
         pass
@@ -350,15 +358,9 @@ def handle_events():
 def update():
    pass
 
-def textInput(x,y,text,color):
-    global window
-    global fontObj
-    textSurfaceObj = fontObj.render(text, True, color)
-    textRectObj = textSurfaceObj.get_rect()
-    textRectObj.center = (x, y)
 
     #screen.fill(white)
-    window.blit(textSurfaceObj, textRectObj)
+    #window.blit(textSurfaceObj, textRectObj)
     
 
 #createPopulation(64,20)
@@ -370,9 +372,10 @@ world.objects.generationAll(10,10,10,10)
 a = Object(10,10,"FOOD",FOOD)
 b = Bot(20,10,10,6,"BOT",BOT)
 world.update() 
+
 while world.run:
     world.update()    
     world.objects.updateBots()
-    
+    #world.textInput(500,500,"Hello world" , (200,200,200))
 pygame.quit()
-print(len(world.objects.poison))
+

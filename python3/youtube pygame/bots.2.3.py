@@ -51,6 +51,19 @@ Map = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 
 
@@ -58,14 +71,16 @@ class World():
     def __init__(self):
         pygame.init()
         random.seed()
-        self.FPS = 100
+        self.FPS = 120
         self.WINDOW_WIDTH = 800
-        self.WINDOW_HEIGHT = 680
+        self.WINDOW_HEIGHT = 800
+        self.mapL = 50
+        self.mapW = 40
         self.clock = pygame.time.Clock()
         self.run = True
         self.window = pygame.display.set_mode((self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
         self.fontObj = pygame.font.Font(None, 20)
-        self.map = Map
+        self.map = Map #self.generationMap()
         pygame.display.set_caption("Bots's world'!")
         self.drawWindow()
         pygame.image.save(self.window,"bg.jpg")
@@ -73,6 +88,19 @@ class World():
         self.bg = pygame.image.load("bg.jpg")
         self.window.blit(self.bg,(0,0))
         self.objects = Objects()
+
+
+    def generationMap(self):
+        Map = []
+        for j in range(self.mapW):
+            Map.append([])
+            for i in range(self.mapL):
+                print(i)
+                if i == 0 or j == 0 or i == self.mapW or j == self.mapL:  
+                    Map[j].append(1)
+                else:
+                    Map[j].append(0)
+        return Map
 
     def drawWindow(self):
 
@@ -83,11 +111,10 @@ class World():
                 pygame.draw.rect(self.window,(getColor(Map[line][sell])),(startX + (widht + border) * sell,startY + (height + border) * line,widht,height))
 
         #pygame.draw.rect(window, (0, 0, 255), (x, y, widht, height))
-        pygame.display.update()
+        pygame.display.flip()
 
     def update(self):
         self.clock.tick(self.FPS)
-        self.window.blit(self.bg,(0,0))
         handle_events()
 
     def drawObjects(self):
@@ -101,9 +128,15 @@ class World():
             i.draw()
 
     def draw(self):
+        self.window.blit(self.bg,(0,0))
         self.drawObjects()
         pygame.display.flip()
 
+    def textInput(self,x,y,text,color):
+        textSurfaceObj = self.fontObj.render(text, True, color)
+        textRectObj = textSurfaceObj.get_rect()
+        textRectObj.center = (x, y)
+        self.window.blit(textSurfaceObj, textRectObj)
 
 
 def getArray(n):
@@ -139,6 +172,17 @@ class Objects():
                 ret = cell.Type
         return ret
 
+    def deleteObject(self,x,y,Type):
+        if Type == "FOOD":
+            i = 0
+            #print("Coordinats ",x,y)
+            while i < len(self.food):
+                if self.food[i].x == x and self.food[i].y == y:
+                    self.food.pop(i)
+                    #print("Object deleted ",x,y)
+                #print(self.food[i].x,self.food[i].y)
+                i += 1 
+
     def generationXY(self):
         x = 1
         y = 1
@@ -161,7 +205,7 @@ class Objects():
     def generationWalls(self,n):
         for i in range(n):
             x, y = self.generationXY()
-            self.walls.append(Object(x,y,"WAll",WAll))
+            self.walls.append(Object(x,y,"WALL",WAll))
 
     def generationBots(self,n):
         def generationDirection():
@@ -179,10 +223,14 @@ class Objects():
 
     def updateBots(self):
         while self.ID < len(self.bots):
-            self.bots[self.ID].move(1,0)
-            self.bots[self.ID].draw()
-            world.draw()
-            self.ID += 1
+            if self.bots[self.ID].alive == False or self.bots[self.ID].health <= 0:
+                del(self.bots[self.ID]) 
+            if self.ID < len(self.bots):
+                self.bots[self.ID].moveFromDirection(random.randint(0,8))
+                #self.bots[self.ID].draw()
+            else:
+                break
+        world.draw()
         self.ID = 0
 
 
@@ -232,8 +280,6 @@ class Bot(Object):
         super().__init__(x,y,Type,color)
         global Map
         self.alive = True
-        self.xTarget = x
-        self.yTarget = y
         self.act = 0
         self.Isee = 0
         self.direction = direction
@@ -265,6 +311,37 @@ class Bot(Object):
             x += 1
         self.move(x,y)
 
+    def move(self,x,y):
+        self.health -= 1
+        if self.x + x > 0 and self.x + x < len(Map[0]) -1 and self.y + y > 0 and self.y + y < len(Map) - 1:
+            if  world.objects.checkCell(self.x + x,self.y + y) == "EMPTY":
+                self.x += x
+                self.y += y
+                self.Isee = "EMPTY"
+                world.objects.ID += 1
+            elif  world.objects.checkCell(self.x + x,self.y + y) == "POISON":
+                self.x += x
+                self.y += y
+                self.alive = False
+                self.Isee = "POISON"
+                world.objects.ID += 1
+            elif  world.objects.checkCell(self.x + x,self.y + y) == "WALL":
+                self.Isee = "WALL"
+                world.objects.ID += 1
+            elif  world.objects.checkCell(self.x + x,self.y + y) == "BOT":
+                self.Isee = "BOT"
+                world.objects.ID += 1
+            elif  world.objects.checkCell(self.x + x,self.y + y) == "FOOD":
+                self.health += 20
+                self.x += x
+                self.y += y
+                self.Isee = "FOOD" 
+                world.objects.deleteObject(self.x,self.y,"FOOD")
+                world.objects.ID += 1
+        else:
+            self.Isee = "WAll"
+            world.objects.ID += 1
+
     def do(self):
         global xTarget, yTarget
         sell = self.DNK[self.index]
@@ -275,7 +352,9 @@ class Bot(Object):
             if sell == 2:
                 xTarget -= 1
 
-    
+    def draw(self):
+        pygame.draw.rect(world.window,self.color,(self.getRealX(),self.getRealY(),widht,height))
+        world.textInput(self.getRealX() + widht / 2, self.getRealY() + widht / 2,str(self.health),(255,255,255))
 
     def take(self, n):
         pass
@@ -350,15 +429,9 @@ def handle_events():
 def update():
    pass
 
-def textInput(x,y,text,color):
-    global window
-    global fontObj
-    textSurfaceObj = fontObj.render(text, True, color)
-    textRectObj = textSurfaceObj.get_rect()
-    textRectObj.center = (x, y)
 
     #screen.fill(white)
-    window.blit(textSurfaceObj, textRectObj)
+    #window.blit(textSurfaceObj, textRectObj)
     
 
 #createPopulation(64,20)
@@ -366,13 +439,14 @@ def textInput(x,y,text,color):
 #generation(4,20)
 world = World()
 
-world.objects.generationAll(10,10,10,10) #poison,walls,bots,food
+world.objects.generationAll(5,5,100,500)
 a = Object(10,10,"FOOD",FOOD)
 b = Bot(20,10,10,6,"BOT",BOT)
 world.update() 
+
 while world.run:
     world.update()    
     world.objects.updateBots()
-    
+    #world.textInput(500,500,"Hello world" , (200,200,200))
 pygame.quit()
-print(len(world.objects.poison))
+
