@@ -1,21 +1,6 @@
 import pygame
 from text_object import *
 import random
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 680
-
-
-pygame.init()
-random.seed()
-clock = pygame.time.Clock()
-window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-fontObj = pygame.font.Font(None, 20)
-pygame.display.set_caption("Bots's world'!")
-
-#x = 2
-#y = 2
-#xTarget = x
-#yTarget = y
 
 up = [0, 1, 2]
 down = [6, 5, 4]
@@ -36,8 +21,7 @@ BOT = (0, 0, 128)
 FOOD = (50, 205, 50)
 POISON = (139, 0, 0)
 CORPSE = (224, 255, 255)
-
-run = True
+BOT_START_HEALTH = 20
 
 Map = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -72,10 +56,55 @@ Map = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
 
 class World():
     def __init__(self):
-        pygame.init()   
+        pygame.init()
         random.seed()
-        self.
-        
+        self.FPS = 100
+        self.WINDOW_WIDTH = 800
+        self.WINDOW_HEIGHT = 680
+        self.clock = pygame.time.Clock()
+        self.run = True
+        self.window = pygame.display.set_mode((self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
+        self.fontObj = pygame.font.Font(None, 20)
+        self.map = Map
+        pygame.display.set_caption("Bots's world'!")
+        self.drawWindow()
+        pygame.image.save(self.window,"bg.jpg")
+
+        self.bg = pygame.image.load("bg.jpg")
+        self.window.blit(self.bg,(0,0))
+        self.objects = Objects()
+
+    def drawWindow(self):
+
+        self.window.fill((240, 240, 250))
+
+        for line in range(len(self.map)):
+            for sell in range(len(self.map[line])):
+                pygame.draw.rect(self.window,(getColor(Map[line][sell])),(startX + (widht + border) * sell,startY + (height + border) * line,widht,height))
+
+        #pygame.draw.rect(window, (0, 0, 255), (x, y, widht, height))
+        pygame.display.update()
+
+    def update(self):
+        self.clock.tick(self.FPS)
+        self.window.blit(self.bg,(0,0))
+        handle_events()
+
+    def drawObjects(self):
+        for i in self.objects.poison:
+            i.draw()
+        for i in self.objects.walls:
+            i.draw()
+        for i in self.objects.bots:
+            i.draw()
+        for i in self.objects.food:
+            i.draw()
+
+    def draw(self):
+        self.drawObjects()
+        pygame.display.flip()
+
+
 
 def getArray(n):
     array = []
@@ -84,6 +113,79 @@ def getArray(n):
         for y in range(8):
             array[i].append(n)
     return array
+
+class Objects():
+    """docstring for Obj"""
+    def __init__(self):
+        self.ID = 0
+        self.poison = []
+        self.walls = []
+        self.bots = []
+        self.food = []
+    
+    def checkCell(self,x,y):
+        ret = "EMPTY"
+        for cell in self.poison:
+            if x == cell.x and y == cell.y:
+                ret = cell.Type
+        for cell in self.walls:
+            if x == cell.x and y == cell.y:
+                ret = cell.Type
+        for cell in self.bots:
+            if x == cell.x and y == cell.y:
+                ret = cell.Type
+        for cell in self.food:
+            if x == cell.x and y == cell.y:
+                ret = cell.Type
+        return ret
+
+    def generationXY(self):
+        x = 1
+        y = 1
+        while self.checkCell(x,y) != "EMPTY":
+            x = random.randint(1,len(Map[0]) -2)
+            y = random.randint(1,len(Map) - 2)
+        return x,y
+
+    def generationAll(self,poison,walls,bots,food):
+        self.generationPioson(poison)
+        self.generationWalls(walls)
+        self.generationBots(bots)
+        self.generationFood(food)
+
+    def generationPioson(self,n):
+        for i in range(n):
+            x, y = self.generationXY()
+            self.poison.append(Object(x,y,"POISON",POISON))
+
+    def generationWalls(self,n):
+        for i in range(n):
+            x, y = self.generationXY()
+            self.walls.append(Object(x,y,"WAll",WAll))
+
+    def generationBots(self,n):
+        def generationDirection():
+            mass = [0,2,4,6]
+            return mass[random.randint(0,3)]
+
+        for i in range(n):
+            x, y = self.generationXY()
+            self.bots.append(Bot(x,y,BOT_START_HEALTH,generationDirection(),"BOT",BOT))
+
+    def generationFood(self,n):
+        for i in range(n):
+            x, y = self.generationXY()
+            self.food.append(Object(x,y,"FOOD",FOOD))
+
+    def updateBots(self):
+        while self.ID < len(self.bots):
+            self.bots[self.ID].move(1,0)
+            self.bots[self.ID].draw()
+            world.draw()
+            self.ID += 1
+        self.ID = 0
+
+
 
 class Object():
     def __init__(self,x,y,Type,color):
@@ -99,7 +201,7 @@ class Object():
         return startY + (height + border) * self.y
     
     def draw(self):
-        pygame.draw.rect(window,self.color,(self.getRealX(),self.getRealY(),widht,height))
+        pygame.draw.rect(world.window,self.color,(self.getRealX(),self.getRealY(),widht,height))
     
     def move(self,x,y):
         if self.x + x > 0 and self.x + x < len(Map[0]) -1 and self.y + y > 0 and self.y + y < len(Map) - 1:
@@ -221,20 +323,6 @@ def createPopulation(n,health):
 
 
 
-def drawWindow():
-    
-    
-
-    global Map
-
-    window.fill((240, 240, 250))
-
-    for line in range(len(Map)):
-        for sell in range(len(Map[line])):
-            pygame.draw.rect(window,(getColor(Map[line][sell])),(startX + (widht + border) * sell,startY + (height + border) * line,widht,height))
-
-    #pygame.draw.rect(window, (0, 0, 255), (x, y, widht, height))
-    pygame.display.update()
 
 
 
@@ -245,7 +333,7 @@ def handle_events():
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            run = False
+            world.run = False
 
     #keys = pygame.key.get_pressed()
     # if keys[pygame.K_LEFT]:
@@ -276,24 +364,15 @@ def textInput(x,y,text,color):
 #createPopulation(64,20)
 #generation(3,100)
 #generation(4,20)
+world = World()
 
-#n = 27
-#k = 0
-drawWindow()
-pygame.image.save(window,"bg.jpg")
-bg = pygame.image.load("bg.jpg")
-window.blit(bg,(0,0))
+world.objects.generationAll(10,10,10,10)
 a = Object(10,10,"FOOD",FOOD)
 b = Bot(20,10,10,6,"BOT",BOT)
-while run:
-    clock.tick(100)
-    window.blit(bg,(0,0))
-    a.draw()
-    b.draw()
-    pygame.display.flip()
-    handle_events()
-    #update()
-    a.move(0,1)
-    b.moveFromDirection(2)
+world.update() 
+while world.run:
+    world.update()    
+    world.objects.updateBots()
     
 pygame.quit()
+print(len(world.objects.poison))
