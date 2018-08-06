@@ -181,10 +181,10 @@ class Objects():
         while self.ID < len(self.bots):
             self.bots[self.ID].move(1,0)
             self.bots[self.ID].draw()
-            world.draw()
+        
             self.ID += 1
         self.ID = 0
-
+        world.draw()
 
 
 class Object():
@@ -284,48 +284,7 @@ class Bot(Object):
         pass
     def turnAround(self, n):
         pass
-    
-
-
-
-def getXY():
-    x = 1
-    y = 1
-    while Map[y][x] != 0:
-        x = random.randint(1,len(Map[0]) -2)
-        y = random.randint(1,len(Map) -2) 
-    Map[y][x] = 2
-    return x, y
-
-def generation(that,n):
-    for i in range(n):
-        x = 1
-        y = 1
-        while Map[y][x] != 0:
-            x = random.randint(1,len(Map[0]) -2)
-            y = random.randint(1,len(Map) -2) 
-        Map[y][x] = that
-def createPopulation(n,health):
-    direction = 2
-    global population 
-    population = []
-    mass = [0,2,4,6]
-    #population.append(Bot(10,10,,2))
-
-    for i in range(n):
-        a ,b=getXY() 
-        direction =mass[random.randint(0,3)] 
-        population.append(Bot(a,b,health,direction))
-
-#population[ID] = 
-
-
-
-
-
-
-
-
+  
 
 def handle_events():
 

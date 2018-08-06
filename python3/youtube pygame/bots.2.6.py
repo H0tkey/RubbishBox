@@ -1,6 +1,7 @@
 import pygame
 from text_object import *
 import random
+import copy
 
 up = [0, 1, 2]
 down = [6, 5, 4]
@@ -21,14 +22,15 @@ BOT = (0, 0, 128)
 FOOD = (50, 205, 50)
 POISON = (139, 0, 0)
 CORPSE = (224, 255, 255)
-BOT_START_HEALTH = 40
+BOT_START_HEALTH = 16
 
 
 class World():
     def __init__(self):
         pygame.init()
         random.seed()
-        self.FPS = 10
+        self.FPS = 30
+        self.generation = 1
         self.WINDOW_WIDTH = 1500
         self.WINDOW_HEIGHT = 700
         self.mapL = 80
@@ -52,12 +54,10 @@ class World():
         for j in range(self.mapW):
             Map.append([])
             for i in range(self.mapL):
-                #print(i)
                 if i == 0 or j == 0 or j == self.mapW - 1 or i == self.mapL - 1:  
                     Map[j].append(1)
                 else:
                     Map[j].append(0)
-        #print(Map)
         return Map
 
     def drawWindow(self):
@@ -113,12 +113,12 @@ class Objects():
         self.walls = []
         self.bots = []
         self.food = []
+        self.MaxPoison = 0
+        self.MaxFood = 0
     
     def checkCell(self,x,y):
         ret = "EMPTY"
-        print("#######",len(self.poison)) 
         for cell in self.poison:
-            #print("POis", cell.x ,cell.y)
             if x == cell.x and y == cell.y:
                 ret = cell.Type
         for cell in self.walls:
@@ -134,7 +134,6 @@ class Objects():
 
     def deleteObject(self,x,y,Type):
         i = self.findObject(x,y,Type)
-        print("Bots x y i",x,y,i)
         if Type == "FOOD":
             self.food.pop(i)
         if Type == "POISON":
@@ -150,7 +149,6 @@ class Objects():
         elif Type == "POISON":
             i = 0
             while i < len(self.poison):
-                print("POISON X Y ", self.poison[i].x,self.poison[i].y)
                 if self.poison[i].x == x and self.poison[i].y == y:
                     return i
                 i += 1 
@@ -164,10 +162,12 @@ class Objects():
         return x,y
 
     def generationAll(self,poison,walls,bots,food):
-        self.generationPioson(poison)
+        self.MaxFood = food
+        self.MaxPoison = poison
+        self.generationPioson(self.MaxPoison)
         self.generationWalls(walls)
         self.generationBots(bots)
-        self.generationFood(food)
+        self.generationFood(self.MaxFood)
 
     def generationPioson(self,n):
         for i in range(n):
@@ -190,24 +190,55 @@ class Objects():
 
     def generationFood(self,n):
         for i in range(n):
+            print("FOOD ",i)
             x, y = self.generationXY()
             self.food.append(Object(x,y,"FOOD",FOOD))
 
-    def updateBots(self):
-        while self.ID < len(self.bots):
-            if self.bots[self.ID].alive == False or self.bots[self.ID].health <= 0:
-                del(self.bots[self.ID]) 
-            if self.ID < len(self.bots):
-                a = random.randint(0,8)
-                #print(a,self.bots[self.ID].direction)
-                self.bots[self.ID].take(a)
-                #self.bots[self.ID].draw()
-            else:
-                break
-        world.draw()
+    def copyBot(self,n):
+        x , y = self.generationXY()
+        bot = copy.deepcopy(self.bots[n])
+        bot.alive = True
+        bot.Isee = "NONE"
+        bot.x = x
+        bot.y = y
+        bot.health = BOT_START_HEALTH
+        bot.step = 0
+        bot.index = 0
+        return bot 
+        random.randint
+    def generationNewBots(self):
         self.ID = 0
+        world.generation += 1
+        for i in range(7):
+            for j in range(8):
+                self.bots.append(self.copyBot(j))
+            
+        for j in range(-8,-1,1):
+            y = random.randint(0,len(self.bots[0].DNK)-1)
+            self.bots[j].DNK[y] = random.randint(0,64)
+    
 
+    def updateBots(self):
+        if len(self.food) < self.MaxFood // 5:
+            self.generationFood(self.MaxFood - len(self.food))
+        if len(self.poison) < self.MaxPoison // 5:
+            self.generationPioson(self.MaxPoison - len(self.poison))
+        if len(self.bots) > 8:
+            print(len(self.bots))
+            while self.ID < len(self.bots):
+                if (self.bots[self.ID].alive == False or self.bots[self.ID].health <= 0) and len(self.bots) > 8:
+                    del(self.bots[self.ID]) 
+                else:
+                    if self.ID < len(self.bots):
+                        self.bots[self.ID].step = 10
+                        self.bots[self.ID].do()
 
+                    else:
+                        break
+            world.draw()
+            self.ID = 0
+        else:
+            self.generationNewBots()
 
 class Object():
     def __init__(self,x,y,Type,color):
@@ -254,19 +285,25 @@ class Bot(Object):
         super().__init__(x,y,Type,color)
         self.alive = True
         self.act = 0
-        self.Isee = 0
+        self.Isee = "NONE"
         self.direction = direction
         self.index = 0
         self.step = 0
         self.health = health
-        self.DNK = [0, 1, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0]
+        self.DNK = [0,1,2,3,4,5,6,7,
+                    25,27,29,31,12,13,14,15,
+                    0,1,2,3,4,5,6,7,
+                    16,17,18,19,20,21,22,23,
+                    0,1,2,3,4,5,6,7,
+                    8,9,10,11,25,27,29,31,15,
+                    16,17,18,19,20,21,22,23,
+                    8,9,10,11,12,13,14,15]
+
+    def generetionDNK(self):
+        mass = []
+        for i in range(64):
+            mass.append(random.randint(0,63))
+        return mass
 
     def getXY(self,direction):
         x = 0
@@ -285,105 +322,149 @@ class Bot(Object):
         return x,y
 
     def move(self,direction):
+        self.index += 1
         x, y  = self.getXY(direction)
         self.health -= 1
+        world.objects.ID += 1
         if self.x + x > 0 and self.x + x < len(world.map[0]) -1 and self.y + y > 0 and self.y + y < len(world.map) - 1:
             if  world.objects.checkCell(self.x + x,self.y + y) == "EMPTY":
                 self.x += x
                 self.y += y
                 self.Isee = "EMPTY"
-                world.objects.ID += 1
             elif  world.objects.checkCell(self.x + x,self.y + y) == "POISON":
                 self.x += x
                 self.y += y
                 self.alive = False
                 self.Isee = "POISON"
-                world.objects.ID += 1
             elif  world.objects.checkCell(self.x + x,self.y + y) == "WALL":
                 self.Isee = "WALL"
-                world.objects.ID += 1
             elif  world.objects.checkCell(self.x + x,self.y + y) == "BOT":
                 self.Isee = "BOT"
-                world.objects.ID += 1
             elif  world.objects.checkCell(self.x + x,self.y + y) == "FOOD":
                 self.health += 20
                 self.x += x
                 self.y += y
                 self.Isee = "FOOD" 
                 world.objects.deleteObject(self.x,self.y,"FOOD")
-                world.objects.ID += 1
         else:
-            self.Isee = "WAll"
-            world.objects.ID += 1
+            self.Isee = "WALL"
 
     def take(self, direction):
+        self.index += 1
         direction -= 8
         x, y  = self.getXY(direction)
         self.health -= 1
+        world.objects.ID += 1
         if self.x + x > 0 and self.x + x < len(world.map[0]) -1 and self.y + y > 0 and self.y + y < len(world.map) - 1:
             if  world.objects.checkCell(self.x + x,self.y + y) == "EMPTY":
                 self.Isee = "EMPTY"
-                world.objects.ID += 1
             elif  world.objects.checkCell(self.x + x,self.y + y) == "POISON":
                 world.objects.deleteObject(self.x + x,self.y + y,"POISON")
                 world.objects.food.append(Object(self.x + x,self.y + y,"FOOD",FOOD))
-                self.Isee = "POISON"
-                world.objects.ID += 1
+                self.Isee = "POISON"     
             elif  world.objects.checkCell(self.x + x,self.y + y) == "WALL":
                 self.Isee = "WALL"
-                world.objects.ID += 1
             elif  world.objects.checkCell(self.x + x,self.y + y) == "BOT":
-                self.Isee = "BOT"
-                world.objects.ID += 1
+                self.Isee = "BOT"  
             elif  world.objects.checkCell(self.x + x,self.y + y) == "FOOD":
                 self.health += 20
                 self.Isee = "FOOD" 
                 world.objects.deleteObject(self.x + x,self.y + y,"FOOD")
-                world.objects.ID += 1
         else:
-            self.Isee = "WAll"
-            world.objects.ID += 1
+            self.Isee = "WALL"
 
     def look(self, direction):
+        self.index += 1
         direction -= 8 * 2
         x, y  = self.getXY(direction)
-        self.step += 1
-        if self.x + x > 0 and self.x + x < len(world.map[0]) -1 and self.y + y > 0 and self.y + y < len(world.map) - 1:
-            if  world.objects.checkCell(self.x + x,self.y + y) == "EMPTY":
-                self.Isee = "EMPTY"
-                world.objects.ID += 1
-            elif  world.objects.checkCell(self.x + x,self.y + y) == "POISON":
-                world.objects.deleteObject(self.x + x,self.y + y,"POISON")
-                world.objects.food.append(Object(self.x + x,self.y + y,"FOOD",FOOD))
-                self.Isee = "POISON"
-                world.objects.ID += 1
-            elif  world.objects.checkCell(self.x + x,self.y + y) == "WALL":
+        if self.step <= 10:
+            self.step += 1
+            if self.x + x > 0 and self.x + x < len(world.map[0]) -1 and self.y + y > 0 and self.y + y < len(world.map) - 1:
+                if  world.objects.checkCell(self.x + x,self.y + y) == "EMPTY":
+                    self.Isee = "EMPTY"
+                elif  world.objects.checkCell(self.x + x,self.y + y) == "POISON":
+                    self.Isee = "POISON"
+                elif  world.objects.checkCell(self.x + x,self.y + y) == "WALL":
+                    self.Isee = "WALL"
+                elif  world.objects.checkCell(self.x + x,self.y + y) == "BOT":
+                    self.Isee = "BOT"
+                elif  world.objects.checkCell(self.x + x,self.y + y) == "FOOD":
+                    self.Isee = "FOOD"
+            else:
                 self.Isee = "WALL"
-                world.objects.ID += 1
-            elif  world.objects.checkCell(self.x + x,self.y + y) == "BOT":
-                self.Isee = "BOT"
-                world.objects.ID += 1
-            elif  world.objects.checkCell(self.x + x,self.y + y) == "FOOD":
-                self.health += 20
-                self.Isee = "FOOD" 
-                world.objects.deleteObject(self.x + x,self.y + y,"FOOD")
-                world.objects.ID += 1
         else:
-            self.Isee = "WAll"
+            self.step = 0
             world.objects.ID += 1
-    def turnAround(self, n):
-        pass
+            self.health -= 1
 
+    def turnAround(self, direction):
+        self.index += 1
+        direction -= 8 * 3
+        direction += self.direction
+        if direction <= 8:
+            direction -= 8
+
+        if self.step <= 10:
+            self.step += 1
+            if direction == 1:
+                self.direction += 2
+            if direction == 3:
+                self.direction += 4
+            if direction == 5:
+                self.direction += 6
+            if self.direction >= 8:
+                self.direction -= 8          
+        else:
+            self.step = 0
+            world.objects.ID += 1
+            self.health -= 1
+
+    def getIndexFromIsee(self):
+        if self.Isee == "NONE":
+            return 0
+        if self.Isee == "EMPTY":
+            return 5
+        if self.Isee == "POISON":
+            return 1
+        if self.Isee == "WALL":
+            return 2
+        if self.Isee == "BOT":
+            return 3
+        if self.Isee == "FOOD":
+            return 4
+
+        #if self.Isee = "CORPSE":
+         #   self.index = 
+        
 
     def do(self):
-        global xTarget, yTarget
-        sell = self.DNK[self.index]
-        if sell <= 7:
-            if sell == 0:
-                xTarget -= 1
-                yTarget -= 1
-            if sell == 2:
-                xTarget -= 1
+        move = [0,1,2,3,4,5,6,7]
+        take = [8,9,10,11,12,13,14,15]
+        look = [16,17,18,19,20,21,22,23]
+        turn = [25,27,29,31]
+        self.index += self.getIndexFromIsee()
+        while self.step <= 10:
+            if self.index >=64:
+                self.index -= 64
+            do = self.DNK[self.index]
+    
+            if do in move:
+                #print("Move ",do)
+                self.move(do)
+                break
+            elif do in take:
+                self.take(do)
+                break
+            elif do in look:
+                self.look(do)
+                break
+            elif do in turn:
+                self.turnAround(do)
+                break
+            else:
+                self.index += do
+            self.step += 1
+
 
     def draw(self):
         pygame.draw.rect(world.window,self.color,(self.getRealX(),self.getRealY(),widht,height))
@@ -466,13 +547,14 @@ def update():
 #generation(4,20)
 world = World()
 
-world.objects.generationAll(400,10,100,10) #poison,walls,bots,food
+world.objects.generationAll(100,10,64,100) #poison,walls,bots,food
 a = Object(10,10,"FOOD",FOOD)
 b = Bot(20,10,10,6,"BOT",BOT)
 world.update() 
 
 while world.run:
-    world.update()    
+    world.update()  
+    world.draw()  
     world.objects.updateBots()
     #world.textInput(500,500,"Hello world" , (200,200,200))
 pygame.quit()
