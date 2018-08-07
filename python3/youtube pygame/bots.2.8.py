@@ -2,6 +2,15 @@ import pygame
 from text_object import *
 import random
 import copy
+import _pickle as cPickle
+LOAD_FILE_NAME = "data.txt"
+SAVE_FILE_NAME = "data.txt"
+LOAD = True
+SAVE = True
+BOTS_N = 64 # Не изменять!
+WALLS_N = 10
+POISON_N = 50
+FOOD_N = 100
 
 up = [0, 1, 2]
 down = [6, 5, 4]
@@ -38,7 +47,7 @@ class World():
         self.clock = pygame.time.Clock()
         self.run = True
         self.window = pygame.display.set_mode((self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
-        self.fontObj = pygame.font.Font(None, 20)
+        self.fontObj = pygame.font.Font("font.ttf", 12)
         self.map = self.generationMap()
         pygame.display.set_caption("Bots's world'!")
         self.drawWindow()
@@ -47,7 +56,7 @@ class World():
         self.bg = pygame.image.load("bg.jpg")
         self.window.blit(self.bg,(0,0))
         self.objects = Objects()
-
+        #self.data = 
 
     def generationMap(self):
         Map = []
@@ -73,7 +82,26 @@ class World():
 
     def update(self):
         self.clock.tick(self.FPS)
-        handle_events()
+        self.handle_events()
+
+    def handle_events(self):
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.run = False
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            self.FPS -= 10
+        if keys[pygame.K_RIGHT]:
+            self.FPS += 10
+
+    # if keys[pygame.K_UP]:
+    #    population[ID].yTarget -= speed
+    # if keys[pygame.K_DOWN]:
+    #    population[ID].yTarget += speed
+
+
 
     def drawObjects(self):
         for i in self.objects.poison:
@@ -85,9 +113,22 @@ class World():
         for i in self.objects.food:
             i.draw()
 
+    def drawText(self):
+        self.textInput(30,(startY + (height + border) * self.mapW) + 10,"Max age:",(70, 130, 180))
+        self.textInput(100,(startY + (height + border) * self.mapW) + 10,str(self.objects.MaxAge),(70, 130, 180))
+        self.textInput(38,(startY + (height + border) * self.mapW) + 30,"Max health:",(70, 130, 180))
+        self.textInput(100,(startY + (height + border) * self.mapW) + 30,str(self.objects.MaxHealth),(70, 130, 180))
+        self.textInput(15,(startY + (height + border) * self.mapW) + 50,"FPS:",(70, 130, 180))
+        self.textInput(100,(startY + (height + border) * self.mapW) + 50,str(self.FPS),(70, 130, 180))
+        #self.textInput(200,(startY + (height + border) * self.mapW) + 30,"Medium Health:",(70, 130, 180))
+        #self.textInput(250,(startY + (height + border) * self.mapW) + 30,str(self.objects.MediumHealth),(70, 130, 180))
+        #self.textInput(200,(startY + (height + border) * self.mapW) + 50,"Medium Age:",(70, 130, 180))
+        #self.textInput(250,(startY + (height + border) * self.mapW) + 50,str(self.objects.MediumAge),(70, 130, 180))
+
     def draw(self):
         self.window.blit(self.bg,(0,0))
         self.drawObjects()
+        self.drawText()
         #print("draw",self.objects.ID)
         pygame.display.flip()
 
@@ -116,6 +157,10 @@ class Objects():
         self.food = []
         self.MaxPoison = 0
         self.MaxFood = 0
+        self.MaxAge = 0
+        self.MaxHealth = 0
+        self.MediumHealth = 0
+        self.MediumAge = 0
     
     def checkCell(self,x,y):
         ret = "EMPTY"
@@ -165,9 +210,18 @@ class Objects():
     def generationAll(self,poison,walls,bots,food):
         self.MaxFood = food
         self.MaxPoison = poison
+        if LOAD:
+            file = open(LOAD_FILE_NAME,mode="rb")
+            a = file.read()
+
+            self.bots = cPickle.loads(a)
+            file.close()
+        else:
+            self.generationBots(bots)
+
         self.generationPioson(self.MaxPoison)
         self.generationWalls(walls)
-        self.generationBots(bots)
+        
         self.generationFood(self.MaxFood)
 
     def generationPioson(self,n):
@@ -205,6 +259,7 @@ class Objects():
         bot.health = BOT_START_HEALTH
         bot.step = 0
         bot.index = 0
+        bot.age = 0
         return bot 
         random.randint
     def generationNewBots(self):
@@ -227,17 +282,29 @@ class Objects():
             self.generationPioson(self.MaxPoison - len(self.poison))
         if len(self.bots) > 8:
             print(len(self.bots))
+            health = 0
+            age = 0
             while self.ID < len(self.bots):
                 if (self.bots[self.ID].alive == False or self.bots[self.ID].health <= 0) and len(self.bots) > 8:
                     del(self.bots[self.ID]) 
                 else:
                     print("BOT DOING")
                     if self.ID < len(self.bots):
+                        health += self.bots[self.ID].health
+                        age += self.bots[self.ID].age
+                        if self.bots[self.ID].age > self.MaxAge:
+                            self.MaxAge = self.bots[self.ID].age
+                        if self.bots[self.ID].health > self.MaxHealth:
+                            self.MaxHealth = self.bots[self.ID].health
                         self.bots[self.ID].do()
+
 
                     else:
                         
                         break
+            self.MediumAge = age // len(self.bots)
+            self.MediumHealth = health // len(self.bots)
+            
             self.ID = 0            
             world.draw()
                 
@@ -288,6 +355,7 @@ def getColor(color):
 class Bot(Object):
     def __init__(self, x, y, health, direction, Type,color):
         super().__init__(x,y,Type,color)
+        self.age = 0
         self.alive = True
         self.act = 0
         self.Isee = "NONE"
@@ -324,6 +392,7 @@ class Bot(Object):
         x, y  = self.getXY(direction)
         self.health -= 1
         world.objects.ID += 1
+        self.age += 1
         if self.x + x > 0 and self.x + x < len(world.map[0]) -1 and self.y + y > 0 and self.y + y < len(world.map) - 1:
             if  world.objects.checkCell(self.x + x,self.y + y) == "EMPTY":
                 self.x += x
@@ -353,6 +422,7 @@ class Bot(Object):
         x, y  = self.getXY(direction)
         self.health -= 1
         world.objects.ID += 1
+        self.age += 1
         if self.x + x > 0 and self.x + x < len(world.map[0]) -1 and self.y + y > 0 and self.y + y < len(world.map) - 1:
             if  world.objects.checkCell(self.x + x,self.y + y) == "EMPTY":
                 self.Isee = "EMPTY"
@@ -394,6 +464,7 @@ class Bot(Object):
             self.step = 0
             world.objects.ID += 1
             self.health -= 1
+            self.age += 1
 
     def turnAround(self, direction):
         self.index += 1
@@ -415,7 +486,8 @@ class Bot(Object):
         else:
             self.step = 0
             world.objects.ID += 1
-            self.health -= 1
+            #self.health -= 1
+            self.age += 1
 
     def getIndexFromIsee(self):
         if self.Isee == "NONE":
@@ -469,12 +541,14 @@ class Bot(Object):
             elif do in jump:
                 print("jump ",do)
                 self.index += do
+                self.age += 1
                 world.objects.ID += 1
                 self.health -= 1
             else:
                 self.health -= 1
                 self.step = 0
                 self.index += 1
+                self.age += 1
                 world.objects.ID += 1
 
     def draw(self):
@@ -525,24 +599,6 @@ def createPopulation(n,health):
 
 
 
-def handle_events():
-
-    global population, run
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            world.run = False
-
-    #keys = pygame.key.get_pressed()
-    # if keys[pygame.K_LEFT]:
-    #    population[ID].xTarget -= speed
-    # if keys[pygame.K_RIGHT]:
-    #    population[ID].xTarget += speed
-
-    # if keys[pygame.K_UP]:
-    #    population[ID].yTarget -= speed
-    # if keys[pygame.K_DOWN]:
-    #    population[ID].yTarget += speed
 
 
 def update():
@@ -556,9 +612,11 @@ def update():
 #createPopulation(64,20)
 #generation(3,100)
 #generation(4,20)
+
+
 world = World()
 
-world.objects.generationAll(50,10,64,200) #poison,walls,bots,food
+world.objects.generationAll(POISON_N,WALLS_N,BOTS_N,FOOD_N) #poison,walls,bots,food
 a = Object(10,10,"FOOD",FOOD)
 b = Bot(20,10,10,6,"BOT",BOT)
 world.update() 
@@ -568,5 +626,15 @@ while world.run:
     world.draw()  
     world.objects.updateBots()
     #world.textInput(500,500,"Hello world" , (200,200,200))
-pygame.quit()
 
+pygame.quit()
+if SAVE:
+    data = open(SAVE_FILE_NAME,mode ='wb')
+    pickled = cPickle.dumps(world.objects.bots)
+    #cPickle.dump(world.objects.bots,world.data)
+    data.write(pickled)
+
+    data.close()
+    print("Data saved")
+else:
+    print("Data didn't save")
