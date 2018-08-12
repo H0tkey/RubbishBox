@@ -6,12 +6,12 @@ import _pickle as cPickle
 import time
 #from os import slep
 
-LOAD_FILE_NAME = "testData.txt"
-SAVE_FILE_NAME = "testData.txt"
-LOAD = True
+LOAD_FILE_NAME = "testData1.txt"
+SAVE_FILE_NAME = "testData1.txt"
+LOAD = False
 SAVE = True
 BOTS_N = 100 
-WALLS_N = 10
+WALLS_N = 159
 POISON_N = 250
 FOOD_N = 200
 
@@ -377,9 +377,9 @@ class Objects():
 
     def updateBots(self):
         print("Update",len(self.bots))
-        if len(self.food) < self.MaxFood // 2:
+        if len(self.food) < self.MaxFood // 1.2:
             self.generationFood(self.MaxFood - len(self.food))
-        if len(self.poison) < self.MaxPoison // 2:
+        if len(self.poison) < self.MaxPoison // 1.2:
             self.generationPioson(self.MaxPoison - len(self.poison))
         if len(self.bots) > 8:
             #print(len(self.bots))
